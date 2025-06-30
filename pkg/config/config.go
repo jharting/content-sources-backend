@@ -40,15 +40,22 @@ type Configuration struct {
 }
 
 type Clients struct {
-	RbacEnabled    bool           `mapstructure:"rbac_enabled"`
-	RbacBaseUrl    string         `mapstructure:"rbac_base_url"`
-	RbacTimeout    int            `mapstructure:"rbac_timeout"`
-	Pulp           Pulp           `mapstructure:"pulp"`
-	Redis          Redis          `mapstructure:"redis"`
-	Candlepin      Candlepin      `mapstructure:"candlepin"`
-	FeatureService FeatureService `mapstructure:"feature_service"`
-	PulpLogParser  PulpLogParser  `mapstructure:"pulp_log_parser"`
-	Roadmap        Roadmap        `mapstructure:"roadmap"`
+	RbacEnabled            bool           `mapstructure:"rbac_enabled"`
+	RbacBaseUrl            string         `mapstructure:"rbac_base_url"`
+	RbacTimeout            int            `mapstructure:"rbac_timeout"`
+	KesselEnabled          bool           `mapstructure:"kessel_enabled"`
+	KesselUrl              string         `mapstructure:"kessel_url"`
+	KesselAuthEnabled      bool           `mapstructure:"kessel_auth_enabled"`
+	KesselAuthClientId     string         `mapstructure:"kessel_auth_client_id"`
+	KesselAuthClientSecret string         `mapstructure:"kessel_auth_client_secret"`
+	KesselAuthOidcIssuer   string         `mapstructure:"kessel_auth_oidc_issuer"`
+	KesselInsecure         bool           `mapstructure:"kessel_insecure"`
+	Pulp                   Pulp           `mapstructure:"pulp"`
+	Redis                  Redis          `mapstructure:"redis"`
+	Candlepin              Candlepin      `mapstructure:"candlepin"`
+	FeatureService         FeatureService `mapstructure:"feature_service"`
+	PulpLogParser          PulpLogParser  `mapstructure:"pulp_log_parser"`
+	Roadmap                Roadmap        `mapstructure:"roadmap"`
 }
 
 type Mocks struct {
@@ -287,6 +294,13 @@ func setDefaults(v *viper.Viper) {
 	v.SetDefault("clients.rbac_enabled", true)
 	v.SetDefault("clients.rbac_base_url", "http://rbac-service:8000/api/rbac/v1")
 	v.SetDefault("clients.rbac_timeout", 30)
+	v.SetDefault("clients.kessel_enabled", false)
+	v.SetDefault("clients.kessel_url", "")
+	v.SetDefault("clients.kessel_auth_enabled", false)
+	v.SetDefault("clients.kessel_auth_client_id", "")
+	v.SetDefault("clients.kessel_auth_client_secret", "")
+	v.SetDefault("clients.kessel_auth_oidc_issuer", "")
+	v.SetDefault("clients.kessel_insecure", true)
 
 	v.SetDefault("clients.candlepin.server", "")
 	v.SetDefault("clients.candlepin.username", "")
